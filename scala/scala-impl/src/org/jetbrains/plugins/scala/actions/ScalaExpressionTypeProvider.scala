@@ -57,9 +57,9 @@ class ScalaExpressionTypeProvider extends ExpressionTypeProvider[PsiElement] {
 object ScalaExpressionTypeProvider {
   private val unknownType = "<unknown>"
 
-  private def extractType(e: PsiElement): Option[ScType] = e match {
+  private def extractType: PsiElement => Option[ScType] = {
     case ResolvedWithSubst(target, subst) => target.ofNamedElement(subst)
-    case Typeable(tpe)                    => Option(tpe)
+    case Typeable(tpe) => Some(tpe)
     case _                                => None
   }
 
